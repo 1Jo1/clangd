@@ -193,8 +193,7 @@ jobs:
         - name: linux-aarch64
           os: ubuntu-latest
           container: ubuntu:22.04
-          preinstall: >-
-            ./build.sh
+          preinstall: ./build.sh
 
     runs-on: ${{ matrix.config.os }}
     container: ${{ matrix.config.container }}
