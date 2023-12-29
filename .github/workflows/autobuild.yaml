@@ -12,6 +12,7 @@ on:
       commit:
         description: 'Commit to build from'
         required: true
+        default: "6009708"
       repo:
         description: 'Repository to build from'
         required: true
@@ -22,9 +23,11 @@ on:
       tag:
         description: 'Tag name'
         required: true
+        default: "12"
       description:
         description: 'Release description'
         required: true
+        default: "sdfsdf"
 jobs:
   schedule_environment:
     name: Create default build environment
@@ -193,8 +196,7 @@ jobs:
         - name: linux-aarch64
           os: ubuntu-latest
           container: ubuntu:22.04
-          preinstall: >-
-            ./build.sh
+          preinstall: ./build.sh
 
     runs-on: ${{ matrix.config.os }}
     container: ${{ matrix.config.container }}
