@@ -254,15 +254,15 @@ jobs:
 
         mkdir grpc-build
 
-        cmake -G Ninja -S grpc -B grpc-build
-        "-DgRPC_INSTALL=ON"
-        "-DCMAKE_INSTALL_PREFIX=$HOME/grpc-installation"
-        "-DCMAKE_BUILD_TYPE=Release"
-        "-DCMAKE_C_FLAGS_RELEASE=${{ matrix.config.cflags }}"
-        "-DCMAKE_CXX_FLAGS_RELEASE=${{ matrix.config.cflags }}"
-        ${{ matrix.config.grpc_cmake }} ${{ matrix.config.cmake }}
-
-        ninja -C grpc-build install
+        # cmake -G Ninja -S grpc -B grpc-build
+        # "-DgRPC_INSTALL=ON"
+        # "-DCMAKE_INSTALL_PREFIX=$HOME/grpc-installation"
+        # "-DCMAKE_BUILD_TYPE=Release"
+        # "-DCMAKE_C_FLAGS_RELEASE=${{ matrix.config.cflags }}"
+        # "-DCMAKE_CXX_FLAGS_RELEASE=${{ matrix.config.cflags }}"
+        # ${{ matrix.config.grpc_cmake }} ${{ matrix.config.cmake }}
+        #
+        # ninja -C grpc-build install
     - name: Fetch target commit
       uses: actions/download-artifact@v1
       with:
