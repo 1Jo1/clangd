@@ -1,0 +1,5 @@
+name: 'docker aarch 64 image'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
