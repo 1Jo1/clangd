@@ -231,8 +231,6 @@ jobs:
     # Visual Studio tools require a bunch of environment variables to be set.
     # Run vcvars64.bat and re-export the current environment to the workflow.
     # (It'd be nice to only export the variables that *changed*, oh well).
-    - name: setup aarch64 
-      uses: ./
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
     - name: Create Docker Cacha Storage Backend
