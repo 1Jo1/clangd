@@ -42,7 +42,10 @@ RUN apt-get update -y -q && apt-get upgrade -y -q && apt-get upgrade -y -q && \
     libstdc++6 \
     python3 \
     gawk \
-    python-dev-is-python3
+    python-dev-is-python3 \
+    ninja-build \
+    libz-dev \
+    libc-ares-dev
 
 WORKDIR /opt
 
