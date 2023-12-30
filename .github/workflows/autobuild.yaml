@@ -194,6 +194,7 @@ jobs:
         #   grpc_cmake: >-
         #     "-DgRPC_CARES_PROVIDER=package"
         - name: linux-aarch64
+          os: ubuntu
           runs:
             using: 'docker'
             image: 'Dockerfile'
