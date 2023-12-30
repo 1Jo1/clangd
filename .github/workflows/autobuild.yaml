@@ -210,6 +210,11 @@ jobs:
     # Visual Studio tools require a bunch of environment variables to be set.
     # Run vcvars64.bat and re-export the current environment to the workflow.
     # (It'd be nice to only export the variables that *changed*, oh well).
+    - name: 
+      if: matrix.config.name = 'linux-aarch64'
+      runs:
+        using: 'docker'
+        image: 'Dockerfile'
     - name: Visual Studio environment
       if: matrix.config.name == 'windows'
       shell: powershell
