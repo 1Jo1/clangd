@@ -208,7 +208,7 @@ jobs:
     # Run vcvars64.bat and re-export the current environment to the workflow.
     # (It'd be nice to only export the variables that *changed*, oh well).
     - name: setup aarch64 
-      uses: ./.github/
+      uses: ./
     - name: Visual Studio environment
       if: matrix.config.name == 'windows'
       shell: powershell
