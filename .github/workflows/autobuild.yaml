@@ -197,8 +197,8 @@ jobs:
           os: ubuntu-latest
           
     runs:
-        using: 'docker'
-        image: 'Dockerfile'
+      using: 'docker'
+      image: 'Dockerfile'
     steps:
     - name: Clone scripts
       uses: actions/checkout@v2
