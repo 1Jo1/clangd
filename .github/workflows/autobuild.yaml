@@ -195,6 +195,25 @@ jobs:
         #     "-DgRPC_CARES_PROVIDER=package"
         - name: linux-aarch64
           os: ubuntu-latest
+          cflags: -O3 -gline-tables-only -DNDEBUG -include $GITHUB_WORKSPACE/.github/workflows/lib_compat.h
+          cmake: >-
+             "-DCMAKE_CXX_COMPILER=clang++-9"
+             "-DCMAKE_EXE_LINKER_FLAGS_RELEASE=-static-libgcc -Wl,--compress-debug-sections=zlib"
+             "-DLLVM_STATIC_LINK_CXX_STDLIB=ON"
+             "-DLLVM_ENABLE_ZLIB=FORCE_ON"
+             "-DCMAKE_PROJECT_INCLUDE=$GITHUB_WORKSPACE/.github/workflows/linux-static-deps.cmake"
+             "-DCMAKE_SYSTEM_PROCESSOR=AArch64"
+             "-DCMAKE_C_COMPILER=aarch64-unknown-linux-gnu-gcc"
+             "-DCMAKE_CXX_COMPILER=aarch64-unknown-linux-gnu-g++"
+             "-DBUILD_SHARED_LIBS=off"
+             "-DLLVM_HOST_TRIPLE=aarch64-unknown-linux-gnu"
+             "-DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra"
+             "-DCMAKE_LIBRARY_ARCHITECTURE=aarch64-unknown-linux-gnu"
+           # Using c-ares as a module prevents dynamic linking of unneeded
+           # libraries. All other gRPC dependencies can be built from sources.
+          grpc_cmake: >-
+             "-DgRPC_CARES_PROVIDER=package"
+
           
     runs-on: ${{ matrix.config.os }}
     # container: ${{ matrix.config.container }}
