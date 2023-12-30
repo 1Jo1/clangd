@@ -143,60 +143,61 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - name: windows
-          os: windows-2019
-          preinstall: choco install ninja nasm
-          vcvars: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat
-          cflags: /O2 /DNDEBUG
-          cmake: >-
-            "-DCMAKE_C_COMPILER=cl"
-            "-DCMAKE_CXX_COMPILER=cl"
-            "-DLLVM_ENABLE_ZLIB=OFF"
-            "-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded"
-          grpc_cmake: >-
-            "-DgRPC_MSVC_STATIC_RUNTIME=ON"
-          binary_extension: ".exe"
-        - name: mac
-          os: macos-latest
-          preinstall: brew install ninja zlib p7zip
-          cflags: -O3 -gline-tables-only -DNDEBUG
-          cmake: >-
-            "-DCMAKE_C_COMPILER=clang"
-            "-DCMAKE_CXX_COMPILER=clang++"
-            "-DLLVM_ENABLE_ZLIB=FORCE_ON"
-            "-DCMAKE_OSX_ARCHITECTURES=x86_64;arm64"
-            "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.9"
-          # BoringSSL doesn't support universal binaries when building with ASM.
-          grpc_cmake: >-
-            "-DOPENSSL_NO_ASM=ON"
-        - name: linux
-          os: ubuntu-latest
-          container: ubuntu:18.04
-          preinstall: >-
-            apt-get update &&
-            apt-get install -y ninja-build libz-dev libc-ares-dev wget clang-9
-            software-properties-common p7zip-full curl &&
-            add-apt-repository ppa:git-core/ppa &&
-            wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - &&
-            apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main' &&
-            apt-get update &&
-            apt-get install -y git cmake
-          cflags: -O3 -gline-tables-only -DNDEBUG -include $GITHUB_WORKSPACE/.github/workflows/lib_compat.h
-          cmake: >-
-            "-DCMAKE_C_COMPILER=clang-9"
-            "-DCMAKE_CXX_COMPILER=clang++-9"
-            "-DCMAKE_EXE_LINKER_FLAGS_RELEASE=-static-libgcc -Wl,--compress-debug-sections=zlib"
-            "-DLLVM_STATIC_LINK_CXX_STDLIB=ON"
-            "-DLLVM_ENABLE_ZLIB=FORCE_ON"
-            "-DCMAKE_PROJECT_INCLUDE=$GITHUB_WORKSPACE/.github/workflows/linux-static-deps.cmake"
-          # Using c-ares as a module prevents dynamic linking of unneeded
-          # libraries. All other gRPC dependencies can be built from sources.
-          grpc_cmake: >-
-            "-DgRPC_CARES_PROVIDER=package"
+        # - name: windows
+        #   os: windows-2019
+        #   preinstall: choco install ninja nasm
+        #   vcvars: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat
+        #   cflags: /O2 /DNDEBUG
+        #   cmake: >-
+        #     "-DCMAKE_C_COMPILER=cl"
+        #     "-DCMAKE_CXX_COMPILER=cl"
+        #     "-DLLVM_ENABLE_ZLIB=OFF"
+        #     "-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded"
+        #   grpc_cmake: >-
+        #     "-DgRPC_MSVC_STATIC_RUNTIME=ON"
+        #   binary_extension: ".exe"
+        # - name: mac
+        #   os: macos-latest
+        #   preinstall: brew install ninja zlib p7zip
+        #   cflags: -O3 -gline-tables-only -DNDEBUG
+        #   cmake: >-
+        #     "-DCMAKE_C_COMPILER=clang"
+        #     "-DCMAKE_CXX_COMPILER=clang++"
+        #     "-DLLVM_ENABLE_ZLIB=FORCE_ON"
+        #     "-DCMAKE_OSX_ARCHITECTURES=x86_64;arm64"
+        #     "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.9"
+        #   # BoringSSL doesn't support universal binaries when building with ASM.
+        #   grpc_cmake: >-
+        #     "-DOPENSSL_NO_ASM=ON"
+        # - name: linux
+        #   os: ubuntu-latest
+        #   container: ubuntu:18.04
+        #   preinstall: >-
+        #     apt-get update &&
+        #     apt-get install -y ninja-build libz-dev libc-ares-dev wget clang-9
+        #     software-properties-common p7zip-full curl &&
+        #     add-apt-repository ppa:git-core/ppa &&
+        #     wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - &&
+        #     apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main' &&
+        #     apt-get update &&
+        #     apt-get install -y git cmake
+        #   cflags: -O3 -gline-tables-only -DNDEBUG -include $GITHUB_WORKSPACE/.github/workflows/lib_compat.h
+        #   cmake: >-
+        #     "-DCMAKE_C_COMPILER=clang-9"
+        #     "-DCMAKE_CXX_COMPILER=clang++-9"
+        #     "-DCMAKE_EXE_LINKER_FLAGS_RELEASE=-static-libgcc -Wl,--compress-debug-sections=zlib"
+        #     "-DLLVM_STATIC_LINK_CXX_STDLIB=ON"
+        #     "-DLLVM_ENABLE_ZLIB=FORCE_ON"
+        #     "-DCMAKE_PROJECT_INCLUDE=$GITHUB_WORKSPACE/.github/workflows/linux-static-deps.cmake"
+        #   # Using c-ares as a module prevents dynamic linking of unneeded
+        #   # libraries. All other gRPC dependencies can be built from sources.
+        #   grpc_cmake: >-
+        #     "-DgRPC_CARES_PROVIDER=package"
         - name: linux-aarch64
           os: ubuntu-latest
-          container: ubuntu:22.04
-          preinstall: ./build.sh
+          runs:
+            using: 'docker'
+            image: 'Dockerfile'
 
     runs-on: ${{ matrix.config.os }}
     container: ${{ matrix.config.container }}
