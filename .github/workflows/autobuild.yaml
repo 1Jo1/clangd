@@ -248,7 +248,7 @@ jobs:
         context: .
         file: Dockerfile
         push: true
-        tags: ghcr.io/1Jo1/clangd:${{ github.sha }}
+        tags: ghcr.io/1jo1/clangd:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
     - name: Visual Studio environment
