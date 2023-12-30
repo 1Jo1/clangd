@@ -209,6 +209,7 @@ jobs:
     # (It'd be nice to only export the variables that *changed*, oh well).
     - name: setup aarch64 
       if: matrix.config.name = 'linux-aarch64'
+      run:
       runs:
         using: 'docker'
         image: 'Dockerfile'
