@@ -208,7 +208,6 @@ jobs:
     # Run vcvars64.bat and re-export the current environment to the workflow.
     # (It'd be nice to only export the variables that *changed*, oh well).
     - name: setup aarch64 
-      if: matrix.config.name = 'linux-aarch64'
       uses: ./.github/workflows/docker.yaml
     - name: Visual Studio environment
       if: matrix.config.name == 'windows'
