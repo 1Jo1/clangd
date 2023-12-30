@@ -197,7 +197,7 @@ jobs:
           os: ubuntu-latest
           
     runs-on: ${{ matrix.config.os }}
-    container: ${{ matrix.config.container }}
+    # container: ${{ matrix.config.container }}
     steps:
     - name: Clone scripts
       uses: actions/checkout@v2
