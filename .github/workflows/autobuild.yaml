@@ -196,8 +196,9 @@ jobs:
         - name: linux-aarch64
           os: ubuntu-latest
           
-    runs-on: ${{ matrix.config.os }}
-    container: ${{ matrix.config.container }}
+    runs:
+        using: 'docker'
+        image: 'Dockerfile'
     steps:
     - name: Clone scripts
       uses: actions/checkout@v2
@@ -207,12 +208,6 @@ jobs:
     # Visual Studio tools require a bunch of environment variables to be set.
     # Run vcvars64.bat and re-export the current environment to the workflow.
     # (It'd be nice to only export the variables that *changed*, oh well).
-    - name: setup aarch64 
-      if: matrix.config.name = 'linux-aarch64'
-      run: ${{ matrix.config.preinstall }}
-      runs:
-        using: 'docker'
-        image: 'Dockerfile'
     - name: Visual Studio environment
       if: matrix.config.name == 'windows'
       shell: powershell
