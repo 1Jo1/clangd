@@ -193,10 +193,10 @@ jobs:
         #   # libraries. All other gRPC dependencies can be built from sources.
         #   grpc_cmake: >-
         #     "-DgRPC_CARES_PROVIDER=package"
-          - name: linux-aarch64
-            runs:
-              using: 'docker'
-              image: 'Dockerfile'
+        - name: linux-aarch64
+          runs:
+            using: 'docker'
+            image: 'Dockerfile'
 
     runs-on: ${{ matrix.config.os }}
     container: ${{ matrix.config.container }}
