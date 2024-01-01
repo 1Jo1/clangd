@@ -132,6 +132,7 @@ jobs:
         name: release
         path: release.env
   build-docker:
+    needs: create_release
     name: "build docker"
     runs-on: ubuntu-latest
     steps:
