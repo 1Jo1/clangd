@@ -169,7 +169,6 @@ jobs:
   build:
     name: Build ${{ matrix.config.name }}
     needs: build-docker
-    if: always() && needs.create_release.result == 'success'
     strategy:
       fail-fast: false
       matrix:
