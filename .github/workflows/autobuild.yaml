@@ -132,9 +132,13 @@ jobs:
         name: release
         path: release.env
   build-docker:
+    name: "build docker"
+    runs-on: ubuntu-latest
+    steps:
     - name: Clone scripts
-      uses: actions/checkout@v2
-      with: { ref: master }
+      uses: actions/checkout@v4
+      with:
+        path: master
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
     - name: Create Docker Cacha Storage Backend
