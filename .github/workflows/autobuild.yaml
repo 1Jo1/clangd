@@ -20,6 +20,7 @@ on:
       release_name:
         description: 'Release name'
         required: true
+        default: 'test'
       tag:
         description: 'Tag name'
         required: true
