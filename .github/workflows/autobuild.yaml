@@ -167,7 +167,7 @@ jobs:
   # Uploading releases needs a per-job token that expires after an hour.
   build:
     name: Build ${{ matrix.config.name }}
-    needs: [create_release, build-docker]
+    needs: build-docker
     if: always() && needs.create_release.result == 'success'
     strategy:
       fail-fast: false
