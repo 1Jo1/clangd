@@ -135,6 +135,7 @@ jobs:
   build_docker:
     name: build docker
     needs: create_release
+    if: always() && needs.create_release.result == 'success'
     runs-on: ubuntu-latest
     steps:
     - name: Clone scripts
