@@ -6,29 +6,8 @@
 # expire. A token `secrets.RELEASE_TOKEN` must exist with public_repo scope.
 name: Build release binaries
 on:
-  # Run weekly on sunday at 21:37 UTC (arbitrary)
-  workflow_dispatch:
-    inputs:
-      commit:
-        description: 'Commit to build from'
-        required: true
-        default: "6009708"
-      repo:
-        description: 'Repository to build from'
-        required: true
-        default: 'llvm/llvm-project'
-      release_name:
-        description: 'Release name'
-        required: true
-        default: 'test'
-      tag:
-        description: 'Tag name'
-        required: true
-        default: "12"
-      description:
-        description: 'Release description'
-        required: true
-        default: "sdfsdf"
+  push:
+ 
 jobs:
   schedule_environment:
     name: Create default build environment
@@ -77,15 +56,15 @@ jobs:
   workflow_dispatch_environment:
     name: Use inputs to create build environment
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' }}
+    # if: ${{ github.event_name == 'workflow_dispatch' }}
     steps:
     - name: Use repo and commit from the inputs
       run: |
-        echo "LLVM_REPO=${{ github.event.inputs.repo }}" >> commit.env
-        echo "LLVM_COMMIT=${{ github.event.inputs.commit }}" >> commit.env
-        echo "TAG_NAME=${{ github.event.inputs.tag }}" >> commit.env
-        echo "RELEASE_NAME=${{ github.event.inputs.release_name }}" >> commit.env
-        echo "RELEASE_DESCRIPTION=${{ github.event.inputs.description }}" >> commit.env
+        echo "LLVM_REPO=llvm/llvm-project" >> commit.env
+        echo "LLVM_COMMIT=6009708" >> commit.env
+        echo "TAG_NAME=12" >> commit.env
+        echo "RELEASE_NAME=test" >> commit.env
+        echo "RELEASE_DESCRIPTION=test2" >> commit.env
     - name: Upload result
       uses: actions/upload-artifact@v2
       with:
