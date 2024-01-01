@@ -66,8 +66,10 @@ USER gcc-user
 RUN ct-ng aarch64-unknown-linux-gnu
 RUN ls -la /home/gcc-user
 
+
 RUN ct-ng build
 ENV PATH=/home/gcc-user/x-tools/aarch64-unknown-linux-gnu/bin:$PATH
 
+USER root
 
 CMD ["/bin/bash"]
