@@ -132,7 +132,7 @@ jobs:
       with:
         name: release
         path: release.env
-  build-docker:
+  build_docker:
     name: build docker
     needs: create_release
     runs-on: ubuntu-latest
@@ -168,7 +168,8 @@ jobs:
   # Uploading releases needs a per-job token that expires after an hour.
   build:
     name: Build ${{ matrix.config.name }}
-    needs: build-docker
+    needs: build_docker
+    if: always() && needs.create_release.result == 'success' && needs.build_docker.result == 'success'
     strategy:
       fail-fast: false
       matrix:
