@@ -45,7 +45,8 @@ RUN apt-get update -y -q && apt-get upgrade -y -q && apt-get upgrade -y -q && \
     python-dev-is-python3 \
     ninja-build \
     libz-dev \
-    libc-ares-dev
+    libc-ares-dev \
+    clang
 
 WORKDIR /opt
 
