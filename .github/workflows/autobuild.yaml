@@ -139,6 +139,11 @@ jobs:
         tags: ghcr.io/1jo1/clangd:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
+    - name: Cache Docker images.
+      uses: ScribeMD/docker-cache@0.3.6
+      with:
+        key: {{ hashFiles('Dockerfile') }}
+ 
 
   # Build clangd using CMake/Ninja.
   #
