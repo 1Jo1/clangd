@@ -6,6 +6,13 @@ RUN mkdir -p /opt && mkdir -p /home/gcc-user && useradd gcc-user && chown gcc-us
 
 RUN apt-get clean -y && apt-get check -y
 
+RUN apt-get update -y -q && apt-get install -y -q software-properties-common p7zip-full curl && \
+        add-apt-repository ppa:git-core/ppa && \
+             wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - && \
+             apt-add-repository 'deb https://apt.kitware.com/ubuntu/ jammy main' && \
+             apt-get update && \
+             apt-get install -y git cmake
+
 RUN apt-get update -y -q && apt-get upgrade -y -q && apt-get upgrade -y -q && \
     apt-get install -y -q \
     autoconf \
@@ -17,7 +24,6 @@ RUN apt-get update -y -q && apt-get upgrade -y -q && apt-get upgrade -y -q && \
     curl \
     help2man \
     file \
-    git \
     binutils-multiarch \
     libncurses5-dev \
     libtool-bin \
@@ -36,7 +42,6 @@ RUN apt-get update -y -q && apt-get upgrade -y -q && apt-get upgrade -y -q && \
     zlib1g-dev \
     xz-utils \
     gcc \
-    cmake \
     build-essential \
     aptitude \
     libstdc++6 \
