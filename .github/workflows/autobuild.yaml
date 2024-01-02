@@ -273,7 +273,7 @@ jobs:
         echo "CLANGD_DIR=clangd_${{ env.TAG_NAME }}" >> $GITHUB_ENV
       shell: bash
     - name: Clone LLVM
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         repository: ${{ env.LLVM_REPO }}
         path: llvm-project
