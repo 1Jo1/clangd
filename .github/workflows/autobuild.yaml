@@ -289,7 +289,6 @@ jobs:
 
         cp llvm-project/llvm/LICENSE.TXT ${{ env.CLANGD_DIR }}
 
-        export TYPE=RELEASE
         cmake -G Ninja -S llvm-project/llvm -B ${{ env.CLANGD_DIR }}
         "-DCMAKE_SYSTEM_NAME=Linux"
         "-DCMAKE_SYSTEM_PROCESSOR=AArch64" 
@@ -300,7 +299,7 @@ jobs:
         "-DLLVM_HOST_TRIPLE=aarch64-unknown-linux-gnu" 
         "-DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" 
         "-DCMAKE_LIBRARY_ARCHITECTURE=aarch64-unknown-linux-gnu"
-        "-DCMAKE_BUILD_TYPE=$TYPE"
+        "-DCMAKE_BUILD_TYPE=Release"
 
         # "-DLLVM_ENABLE_PROJECTS=clang;clang-tools-extra;openmp"
         # "-DLLVM_ENABLE_ASSERTIONS=OFF"
