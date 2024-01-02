@@ -278,6 +278,7 @@ jobs:
         repository: 'llvm/llvm-project'
         path: llvm-project
         ref: '6009708'
+        fetch-depth: 0
     - name: CMake
       run: >
         mkdir ${{ env.CLANGD_DIR }}
