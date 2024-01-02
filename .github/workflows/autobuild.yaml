@@ -277,7 +277,7 @@ jobs:
       with:
         repository: 'llvm/llvm-project'
         path: llvm-project
-        ref: '6009708'
+        ref: 'llvmorg-17.0.6'
         fetch-depth: 0
     - name: CMake
       run: >
