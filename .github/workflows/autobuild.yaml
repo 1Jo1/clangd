@@ -142,7 +142,7 @@ jobs:
     - name: Cache Docker images.
       uses: ScribeMD/docker-cache@0.3.6
       with:
-        key: {{ hashFiles('Dockerfile') }}
+        key: ${{ hashFiles('Dockerfile') }}
  
 
   # Build clangd using CMake/Ninja.
