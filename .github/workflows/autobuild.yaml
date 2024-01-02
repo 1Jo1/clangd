@@ -275,9 +275,9 @@ jobs:
     - name: Clone LLVM
       uses: actions/checkout@v4
       with:
-        repository: ${{ env.LLVM_REPO }}
+        repository: 'llvm/llvm-project'
         path: llvm-project
-        ref: ${{ env.LLVM_COMMIT }}
+        ref: '6009708'
     - name: CMake
       run: >
         mkdir ${{ env.CLANGD_DIR }}
