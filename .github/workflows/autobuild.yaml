@@ -250,31 +250,6 @@ jobs:
             echo "$($name)=$($value)" >> $env:GITHUB_ENV
           }
         }
-    - name: Clone gRPC
-      uses: actions/checkout@v2
-      with:
-        repository: grpc/grpc
-        path: grpc
-        # We use the same version of gRPC for LLVM's clangd-ubuntu-tsan
-        # buildbot.
-        # https://github.com/llvm/llvm-zorg/blob/main/buildbot/google/docker/buildbot-clangd-ubuntu-clang/Dockerfile
-        ref: v1.36.3
-        submodules: recursive
-    - name: Build gRPC
-      run: >
-        mkdir $HOME/grpc-installation
-
-        mkdir grpc-build
-
-        cmake -G Ninja -S grpc -B grpc-build
-        "-DgRPC_INSTALL=ON"
-        "-DCMAKE_INSTALL_PREFIX=$HOME/grpc-installation"
-        "-DCMAKE_BUILD_TYPE=Release"
-        "-DCMAKE_C_FLAGS_RELEASE=${{ matrix.config.cflags }}"
-        "-DCMAKE_CXX_FLAGS_RELEASE=${{ matrix.config.cflags }}"
-        ${{ matrix.config.grpc_cmake }} ${{ matrix.config.test_cmake }}
-
-        ninja -C grpc-build install
     - name: Fetch target commit
       uses: actions/download-artifact@v1
       with:
@@ -321,7 +296,6 @@ jobs:
         "-DCMAKE_CXX_FLAGS_RELEASE=${{ matrix.config.cflags }}"
         "-DCLANGD_ENABLE_REMOTE=ON"
         "-DLLVM_ENABLE_ZSTD=OFF"
-        "-DGRPC_INSTALL_PATH=$HOME/grpc-installation"
         ${{ matrix.config.cmake }}
     - name: Ninja
       run: >
