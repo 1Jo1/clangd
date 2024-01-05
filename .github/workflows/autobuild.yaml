@@ -297,22 +297,9 @@ jobs:
         "-DLLVM_NATIVE_TOOL_DIR="${{env.CLANG_DIR}}/bin"
         "-DBUILD_SHARED_LIBS=off"
         "-DLLVM_HOST_TRIPLE=aarch64-unknown-linux-gnu" 
-        "-DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" 
+        "-DLLVM_ENABLE_PROJECTS=clang;clang-tools-extra" 
         "-DCMAKE_LIBRARY_ARCHITECTURE=aarch64-unknown-linux-gnu"
         "-DCMAKE_BUILD_TYPE=Release"
-
-        # "-DLLVM_ENABLE_PROJECTS=clang;clang-tools-extra;openmp"
-        # "-DLLVM_ENABLE_ASSERTIONS=OFF"
-        # "-DLLVM_ENABLE_BACKTRACES=ON"
-        # "-DLLVM_ENABLE_TERMINFO=OFF"
-        # "-DCMAKE_BUILD_TYPE=Release"
-        # "-DCLANG_PLUGIN_SUPPORT=OFF"
-        # "-DLLVM_ENABLE_PLUGINS=OFF"
-        # "-DCMAKE_C_FLAGS_RELEASE=${{ matrix.config.cflags }}"
-        # "-DCMAKE_CXX_FLAGS_RELEASE=${{ matrix.config.cflags }}"
-        # "-DCLANGD_ENABLE_REMOTE=ON"
-        # "-DLLVM_ENABLE_ZSTD=OFF"
-        # ${{ matrix.config.cmake }}
     - name: Ninja
       run: >
         ninja -C ${{ env.CLANGD_DIR }} clangd clangd-indexer clangd-index-server
