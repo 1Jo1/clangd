@@ -294,7 +294,7 @@ jobs:
         "-DCMAKE_SYSTEM_PROCESSOR=AArch64" 
         "-DCMAKE_C_COMPILER=aarch64-unknown-linux-gnu-gcc" 
         "-DCMAKE_CXX_COMPILER=aarch64-unknown-linux-gnu-g++" 
-        "-DLLVM_NATIVE_TOOL_DIR="${{env.CLANG_DIR}}/bin"
+        "-DLLVM_NATIVE_TOOL_DIR=${{env.CLANG_DIR}}/bin"
         "-DBUILD_SHARED_LIBS=off"
         "-DLLVM_HOST_TRIPLE=aarch64-unknown-linux-gnu" 
         "-DLLVM_ENABLE_PROJECTS=clang;clang-tools-extra" 
